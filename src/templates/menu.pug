@@ -1,0 +1,6 @@
+- var menuList = [{name:"Menu item 1", link:"#1"}, {name:"Menu item 2", link:"#2"}, {name:"Menu item 3", link:"#3"}];
+
+nav
+	ul
+		each item in menuList
+			li: a(href="" + item.link ) #{item.name}

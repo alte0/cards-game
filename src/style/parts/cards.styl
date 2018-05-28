@@ -1,0 +1,45 @@
+b-i($str)
+  background-image: url('/img/cards/' + $str + '.png')
+numscard()
+  for $num in (2..9)
+    &__{$num}C
+      b-i('' + $num + 'C')
+    &__{$num}D
+      b-i('' + $num + 'D')
+    &__{$num}H
+      b-i('' + $num + 'H')
+    &__{$num}S
+      b-i('' + $num + 'S')
+numscardSt()
+  for $str in 'A' 'J' 'K' 'Q'
+    &__{$str}C
+      b-i('' + $str + 'C')
+    &__{$str}D
+      b-i('' + $str + 'D')
+    &__{$str}H
+      b-i('' + $str + 'H')
+    &__{$str}S
+      b-i('' + $str + 'S')
+
+.card
+  height: 163px
+  background-repeat: no-repeat
+  background-position: center
+  background-size: contain
+  flex-basis: 16.66666666666667%
+  &__0C
+    b-i('0C')
+  &__0D
+    b-i('0D')
+  &__0H
+    b-i('0H')
+  &__0S
+    b-i('0S')
+  
+  numscard()
+  numscardSt()
+  &__outside
+    background-image: url('/img/cards/card-outside.png')
+    background-size: 100%
+    margin-bottom: 2px
+    border-radius: 5px
