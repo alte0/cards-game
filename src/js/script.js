@@ -12,6 +12,11 @@
   var counterMatchedCard = 0;
   var counterCheckCard = 0;
   var points = 0;
+  var cardLeft;
+  var SCORE = document.querySelector('#score');
+  var MULTIPLIED_NUM = 42;
+  var ALL_CARDS_NUM = 18;
+  var FINAL_SCORE = document.querySelector('#final-score');
 
   var invertOpeningCard = function () {
     var cards = document.querySelectorAll('.card');
@@ -44,11 +49,20 @@
       CARDS_CONTAINER.addEventListener('click', clickCardHandler);
       counterMatchedCard +=2;
       setTimeout(clickCardRemainingHandler, 2500);
+      setTimeout(function(){
+        points = points + cardLeft * MULTIPLIED_NUM;
+        SCORE.textContent = points;
+        FINAL_SCORE.textContent = points;
+      }, 2500);
     } else {
       setTimeout(invertOpeningCard, 2000);
       [].forEach.call(cards, function(item){
         item.setAttribute('data-open', 'false');
-      })
+      });
+      cardLeft = CARDS_CONTAINER.childNodes.length;
+      points = points - (ALL_CARDS_NUM - cardLeft) * MULTIPLIED_NUM;
+      SCORE.textContent = points;
+      FINAL_SCORE.textContent = points;
     }
   };
 
@@ -70,8 +84,9 @@
   };
 
   var clickCardRemainingHandler = function () {
-    console.log(CARDS_CONTAINER.childNodes.length);
-    if (CARDS_CONTAINER.childNodes.length === 0) {
+    cardLeft = CARDS_CONTAINER.childNodes.length;
+    console.log(cardLeft);
+    if (cardLeft === 0) {
       BLOCK_GAME_PLAY.classList.toggle('game__play_d-none');
       BLOCK_GAME_END.classList.toggle('game__end_d-none');
     }
@@ -98,6 +113,8 @@
     }
     renderCards();
     cardsRotate();
+    points = 0;
+    SCORE.textContent = points;
   };
 
   var randomValueArray = function (array) {
