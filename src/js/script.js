@@ -9,7 +9,8 @@
   var CARDS_ARRAY = ['0','2','3','4','5','6','7','8','9','J','A','K','Q'];
   var CARDS_ARRAY_STR = ['C', 'D', 'H', 'S'];
   var CARDS_CONTAINER = document.querySelector('.game__play-cards');
-  var counterOpenCard = 0;
+  var counterMatchedCard = 0;
+  var counterCheckCard = 0;
   var points = 0;
 
   var invertOpeningCard = function () {
@@ -20,7 +21,7 @@
         item.classList.toggle('card__outside');
       }
     });
-    counterOpenCard = 0;
+    counterCheckCard = 0;
     CARDS_CONTAINER.addEventListener('click', clickCardHandler);
   }
 
@@ -38,10 +39,11 @@
     var card1 = cards[0].className.substring(5);
     var card2 = cards[1].className.substring(5);
     if (card1 === card2) {
-      console.log(card1, card2);
       setTimeout(deleteOpenCards, 2000);
-      counterOpenCard = 0;
+      counterCheckCard = 0;
       CARDS_CONTAINER.addEventListener('click', clickCardHandler);
+      counterMatchedCard +=2;
+      setTimeout(clickCardRemainingHandler, 2500);
     } else {
       setTimeout(invertOpeningCard, 2000);
       [].forEach.call(cards, function(item){
@@ -57,14 +59,21 @@
       if (target.classList.contains("card")) {
         target.classList.toggle('card__outside');
         target.setAttribute('data-open', 'true');
-        counterOpenCard++;
-        console.log(counterOpenCard);
-        if (counterOpenCard === 2) {
+        counterCheckCard++;
+        if (counterCheckCard === 2) {
           CARDS_CONTAINER.removeEventListener('click', clickCardHandler);
           checkOpenCard();
         }
       }
       target = target.parentNode;
+    }
+  };
+
+  var clickCardRemainingHandler = function () {
+    console.log(CARDS_CONTAINER.childNodes.length);
+    if (CARDS_CONTAINER.childNodes.length === 0) {
+      BLOCK_GAME_PLAY.classList.toggle('game__play_d-none');
+      BLOCK_GAME_END.classList.toggle('game__end_d-none');
     }
   };
   
