@@ -9,6 +9,9 @@
   var CARDS_ARRAY = ['0','2','3','4','5','6','7','8','9','J','A','K','Q'];
   var CARDS_ARRAY_STR = ['C', 'D', 'H', 'S'];
   var CARDS_CONTAINER = document.querySelector('.game__play-cards');
+  var TIME_ROTATE_CARD = 5000;
+  var TIME_FOR_JOB_CARD = 2000;
+  var TIME_FOR_SET_POINTS_CARD = 2500;
   var counterMatchedCard = 0;
   var counterCheckCard = 0;
   var points = 0;
@@ -39,30 +42,34 @@
     }
   };
 
+  var setPoints = function () {
+    SCORE.textContent = points;
+    FINAL_SCORE.textContent = points;
+  };
+
   var checkOpenCard = function () {
     var cards = document.querySelectorAll('.card[data-open="true"]');
     var card1 = cards[0].className.substring(5);
     var card2 = cards[1].className.substring(5);
+    var CardRemaining = clickCardRemainingHandler;
     if (card1 === card2) {
-      setTimeout(deleteOpenCards, 2000);
+      setTimeout(deleteOpenCards, TIME_FOR_JOB_CARD);
       counterCheckCard = 0;
       CARDS_CONTAINER.addEventListener('click', clickCardHandler);
-      counterMatchedCard +=2;
-      setTimeout(clickCardRemainingHandler, 2500);
+      counterMatchedCard += 2;
       setTimeout(function(){
+        CardRemaining();
         points = points + cardLeft * MULTIPLIED_NUM;
-        SCORE.textContent = points;
-        FINAL_SCORE.textContent = points;
-      }, 2500);
+        setPoints();
+      }, TIME_FOR_SET_POINTS_CARD);
     } else {
-      setTimeout(invertOpeningCard, 2000);
+      setTimeout(invertOpeningCard, TIME_FOR_JOB_CARD);
       [].forEach.call(cards, function(item){
         item.setAttribute('data-open', 'false');
       });
-      cardLeft = CARDS_CONTAINER.childNodes.length;
+      CardRemaining();
       points = points - (ALL_CARDS_NUM - cardLeft) * MULTIPLIED_NUM;
-      SCORE.textContent = points;
-      FINAL_SCORE.textContent = points;
+      setPoints();
     }
   };
 
@@ -85,7 +92,7 @@
 
   var clickCardRemainingHandler = function () {
     cardLeft = CARDS_CONTAINER.childNodes.length;
-    console.log(cardLeft);
+    
     if (cardLeft === 0) {
       BLOCK_GAME_PLAY.classList.toggle('game__play_d-none');
       BLOCK_GAME_END.classList.toggle('game__end_d-none');
@@ -164,7 +171,7 @@
         item.classList.toggle('card__outside');
       });
       CARDS_CONTAINER.addEventListener('click', clickCardHandler);
-    }, 5000);
+    }, TIME_ROTATE_CARD);
   };
 
   BTN_PLAY.addEventListener('click', clickPlayHandler);
