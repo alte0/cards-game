@@ -1,0 +1,13 @@
+// Common styles of the project
+
+html, body {
+    height: 100%;
+}
+
+.page {
+    background-color: #1b692d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
