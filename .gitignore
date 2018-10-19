@@ -1,10 +1,18 @@
-# common, PHPStorm, WebStorm
-.DS_Store
-**/.idea
-Thumbs.db
-
-#project
-bower_components
 node_modules
+dev
+.DS_Store
+._.DS_Store
+
+.tmpTemplater
+.tmpPreproc
+
+.idea
 npm-debug.log
-dist
+phantomjsdriver.log
+/nbproject/*
+
+**/sprite_96.*
+**/svg-fallback-sprite.*
+**/svg-sprite.*
+
+.vscode
