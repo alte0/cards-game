@@ -1,0 +1,33 @@
+// сама рубашки карты
+.card {
+    height: 163px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
+    -ms-flex-preferred-size: 16.66666666666667%;
+    flex-basis: 16.66666666666667%;
+    flex-basis: 16.383%;
+    margin-bottom: 2px;
+    margin-left: 1px;
+    margin-right: 1px;
+    &__0C {
+        @include b-i('0C')
+    }
+    &__0D {
+        @include b-i('0D')
+    }
+    &__0H {
+        @include b-i('0H')
+    }
+    &__0S {
+        @include b-i('0S')
+    }
+
+    @include numscard();
+    @include numscardSt();
+    &__outside {
+        background-image: url('../img/general/cards/card-outside.png');
+        background-size: 100%;
+        border-radius: 5px;
+    }
+}

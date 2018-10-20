@@ -30,3 +30,45 @@
 }
 
 // You can add your own mixins here:
+
+
+// миксины для формирования рубашки карт
+@mixin b-i($str) {
+    background-image: url('../img/general/cards/#{$str}.png')
+}
+
+@mixin numscard() {
+    @for $i from 2 through 9 {
+      &__#{ $i }C {
+        @include b-i('' + $i + 'C')
+      }
+      &__#{ $i }D {
+        @include b-i('' + $i + 'D')
+      }
+      &__#{ $i }H {
+        @include b-i('' + $i + 'H')
+      }
+      &__#{ $i }S {
+        @include b-i('' + $i + 'S')
+      }
+      $i: $i - 1;
+    }
+}
+
+@mixin numscardSt() {
+    @each $str in 'A' 'J' 'K' 'Q' {
+      &__#{$str}C {
+        @include b-i('' + $str + 'C')
+      }
+      &__#{$str}D {
+        @include b-i('' + $str + 'D')
+      }
+      &__#{$str}H {
+        @include b-i('' + $str + 'H')
+      }
+      &__#{$str}S {
+        @include b-i('' + $str + 'S')
+      }
+    }
+}
+// end миксины для формирования рубашки карт
